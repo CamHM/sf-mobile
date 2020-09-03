@@ -1,0 +1,16 @@
+.InOut-title {
+    margin-right: 30%;
+    color: #ca8f35;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.InOut-card {
+    border-bottom: rgba(0,0,0, 0.1) 1px solid;
+    margin: 8px 0;
+    padding: 0 3px;
+    color: #7f8490;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

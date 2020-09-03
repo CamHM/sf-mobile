@@ -11,10 +11,9 @@ import {
     IonSelect,
     IonSelectOption
 } from '@ionic/react';
-import {chevronDownOutline, chevronUpOutline} from 'ionicons/icons'
+import {chevronDownOutline, chevronUpOutline} from 'ionicons/icons';
 import Page from "../Page";
 import './Activities.css';
-import moment from "moment";
 import { stateColor, stateName, formatDate } from "../../config/utils";
 
 interface Activity {

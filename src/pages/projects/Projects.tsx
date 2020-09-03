@@ -38,12 +38,12 @@ const Projects: React.FC = () => {
             name="Proyectos asociados"
             content={
                 <IonContent>
-                    {projects.length === 0 && <p>El usuario no tiene proyectos asociados.</p>}
+                    {projects.length === 0 && <p className="activity-name">El usuario no tiene proyectos asociados.</p>}
                     { projects.map(pro =>
                         <div key={`project-${pro.id}`} className="project-card">
                             <p>{pro.name}</p>
-                            <p className="label"><b>Inicio: </b>{formatDate(pro.start_date)}</p>
-                            <p className="label"><b>Fin: </b>{formatDate(pro.end_date)}</p>
+                            <p className="project-label"><b>Inicio: </b>{formatDate(pro.start_date)}</p>
+                            <p className="project-label"><b>Fin: </b>{formatDate(pro.end_date)}</p>
                             <div style={{ backgroundColor: stateColorCode(pro.state) }} className="project-state">
                                 {stateName(pro.state)}
                             </div>

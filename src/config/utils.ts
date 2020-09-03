@@ -63,3 +63,7 @@ export function stateName(state: string) {
 export function formatDate(date: Date) {
    return moment(date).format('LL')
 }
+
+export function formatLongDate(date: Date) {
+    return moment(date).format('lll')
+}
