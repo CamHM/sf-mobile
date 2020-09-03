@@ -2,6 +2,7 @@ import {
   IonContent,
   IonIcon,
   IonItem,
+  IonItemDivider,
   IonLabel,
   IonList,
   IonListHeader,
@@ -12,7 +13,7 @@ import {
 
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { bookmarkOutline, calendarOutline, calendarSharp, copyOutline, copySharp, logOutOutline, qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
+import { calendarOutline, calendarSharp, copyOutline, copySharp, logOutOutline, personCircleOutline, qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
 import './Menu.css';
 
 interface AppPage {
@@ -23,6 +24,12 @@ interface AppPage {
 }
 
 const appPages: AppPage[] = [
+  {
+    title: 'Mi Perfil',
+    url: '/page/user',
+    iosIcon: personCircleOutline,
+    mdIcon: personCircleOutline
+  },
   {
     title: 'Actividades',
     url: '/page/activities',
@@ -43,16 +50,14 @@ const appPages: AppPage[] = [
   },
 ];
 
-const labels = ['Notes', 'Reminders'];
-
 const Menu: React.FC = () => {
   const location = useLocation();
 
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
-        <IonList id="inbox-list">
-          <IonListHeader>Mi perfil</IonListHeader>
+        <IonList id="inbox-list" lines="none">
+          <IonListHeader>Usuario A</IonListHeader>
           <IonNote>usuario-log-in@gmail.com</IonNote>
           {appPages.map((appPage, index) => {
             return (
@@ -68,16 +73,6 @@ const Menu: React.FC = () => {
             <IonIcon slot="start" ios={logOutOutline} md={logOutOutline} />
             <IonLabel>Cerrar sesión</IonLabel>
           </IonItem>
-        </IonList>
-
-        <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
-          {labels.map((label, index) => (
-            <IonItem lines="none" key={index}>
-              <IonIcon slot="start" icon={bookmarkOutline} />
-              <IonLabel>{label}</IonLabel>
-            </IonItem>
-          ))}
         </IonList>
       </IonContent>
     </IonMenu>
