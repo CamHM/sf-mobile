@@ -64,6 +64,30 @@ export function stateName(state: string) {
     }
 }
 
+export function dayTimeName(state: string) {
+    switch (state) {
+        case 'MORNING': {
+            return 'Entrada en la mañana';
+        }
+        case 'HALF_DAY': {
+            return 'Salida a medio dia';
+        }
+        case 'AFTERNOON': {
+            return 'Entrada en la tarde';
+        }
+        case 'NIGHT': {
+            return 'Salida en la noche'
+        }
+        case 'COMPLETE_JOURNEY': {
+            return 'Se completaron las 4 entradas del dia'
+        }
+        default: {
+            return 'Entrada en la mañana';
+        }
+    }
+}
+
+
 export function formatDate(date: Date) {
    return moment(date).format('LL')
 }
@@ -86,8 +110,8 @@ export async function setItem(key: string, value: string) {
 }
 
 export async function getItem(key: string) {
-    const { value } = await Storage.get({ key: key });
-    console.log('Item: ', value);
+    const { value } = await Storage.get({ key });
+    return value
 }
 
 export async function removeItem(key: string) {

@@ -1,46 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IonContent, IonButton, IonIcon } from "@ionic/react";
 import { qrCodeSharp } from 'ionicons/icons';
 import Page from "../Page";
-import { formatLongDate } from "../../config/utils";
 import "./InOut.css";
+import { getRequest, postRequest } from "../../service/service.provider";
+import { getItem, dayTimeName, formatLongDate } from "../../config/utils";
 
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 interface Record {
     id: number,
-    date: Date,
-    projectName: string,
-    workingDay: string,
-    type: string,
+    ouvreId: number,
+    ouvreName?: string,
+    scheduleDate: Date,
+    dayTime?: string,
+    userId: number,
+    createdAt: Date,
+    updatedAt: Date,
 }
 
-const records: Record[] = [
-    {
-        id: 1,
-        projectName: 'Proyecto x',
-        date: new Date(Date.now()),
-        workingDay: 'Mañana',
-        type: 'Salida',
-    },
-    {
-        id: 2,
-        projectName: 'Proyecto x',
-        date: new Date(Date.now()),
-        workingDay: 'Tarde',
-        type: 'Entrada',
-    },
-    {
-        id: 3,
-        projectName: 'Proyecto x',
-        date: new Date(Date.now()),
-        workingDay: 'Noche',
-        type: 'Salida',
-    },
-]
-
 const InOut: React.FC = () => {
-    const [currentCode, setCurrentCode] = useState<string>('');
+    const [records, setRecords] = useState<Record[]>([]);
+
+    useEffect(() => {
+        getRecords();
+    }, [])
+
+    const getRecords = () => {
+        getItem('token').then(t => {
+            getItem('userId').then(id => {
+                getRequest(`/schedule/getUserSchedule?userId=${id}`, t || '')
+                    .then(res => res.json())
+                    .then(data => {
+                        setRecords(data)
+                    })
+            })
+        });
+    }
 
     const scanCode = async () => {
         const options: BarcodeScannerOptions = {
@@ -55,9 +51,19 @@ const InOut: React.FC = () => {
         };
 
         const data = await BarcodeScanner.scan(options);
-        alert(`Código: ${data.text}`);
-        setCurrentCode(data.text);
+        save(data.text);
     }
+
+    const save = (ouvreToken: string) => {
+        getItem('userId').then(value => {
+            const payload = { ouvreToken, userId: value  };
+            getItem('token').then(t => {
+                postRequest(payload, '/schedule/addSchedule', t || '')
+                    .then(res => res.json())
+                    .then(data => getRecords())
+            })
+        });
+    };
 
     return (
         <Page
@@ -73,8 +79,8 @@ const InOut: React.FC = () => {
                     { records.length === 0 && <p className="activity-name">No hay registros de entrada/salida</p> }
                     { records.map(rec =>
                         <div key={`record-${rec.id}`} className="InOut-card">
-                            <p>{rec.type}</p>
-                            <p>{formatLongDate(rec.date)}</p>
+                            <p>{dayTimeName(rec.dayTime || 'MORNING')}</p>
+                            <p>{formatLongDate(rec.scheduleDate)}</p>
                         </div>
                     ) }
                 </IonContent>

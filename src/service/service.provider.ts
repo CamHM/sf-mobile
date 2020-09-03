@@ -4,8 +4,6 @@ const SERVER_URL = 'https://constructora-sf.herokuapp.com';
 const TOKEN = 'token';
 
 export async function postRequest(data: any, url: string, token?: string): Promise<Response> {
-    const storageToken = getItem(TOKEN);
-    console.log('token', storageToken);
     const request: RequestInit = {
         method: 'Post',
         headers: {
@@ -18,8 +16,6 @@ export async function postRequest(data: any, url: string, token?: string): Promi
 }
 
 export async function getRequest(url: string, token?: string): Promise<Response> {
-    const storageToken = getItem(TOKEN);
-    console.log('token', storageToken);
     const request: RequestInit = {
         method: 'GET',
         headers: {

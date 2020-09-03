@@ -24,7 +24,9 @@ const Login: React.FC = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data?.token) {
+                        console.log(data)
                         setItem('token', data?.token);
+                        setItem('userId', data?.userId);
                         history.push('/page/activities');
                     }
                     console.log(data?.token);
