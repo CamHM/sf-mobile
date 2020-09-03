@@ -2,7 +2,6 @@ import {
   IonContent,
   IonIcon,
   IonItem,
-  IonItemDivider,
   IonLabel,
   IonList,
   IonListHeader,

@@ -1,0 +1,41 @@
+.activity-card, .active_activity {
+    border: rgba(0, 0, 0, 0.07) 1px solid;
+    margin: 10px 0 2px 0;
+    padding: 10px 10px 10px 5px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    color: #7f8490;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.activity-name {
+    color: #8c8c8c;
+    font-size: 14px;
+    margin-right: 10px;
+    margin-left: 20px;
+    text-align: center;
+}
+
+.active_activity {
+    border-color: rgba(156, 230, 18, 1);
+}
+
+.activity-desc {
+    margin: 0 10px;
+    padding: 2px 15px 15px 15px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #7f8490;
+}
+
+.label {
+    font-size: 13px;
+    margin: 4px 0 3px 0;
+}
+
+.space {
+    margin-bottom: 10px;
+}
+

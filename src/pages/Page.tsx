@@ -1,20 +1,19 @@
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
-import ExploreContainer from '../components/ExploreContainer';
 import './Page.css';
 
-const Page: React.FC<{ name: string }> = ({ name }) => {
+const Page: React.FC<{ name: string, content?: any }> = ({ name, content }) => {
 
   // const { name } = useParams<{ name: string; }>();
 
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonButtons slot="start">
-            <IonMenuButton />
+            <IonMenuButton color="light" />
           </IonButtons>
-          <IonTitle>{name}</IonTitle>
+          <IonTitle color="light">{name}</IonTitle>
         </IonToolbar>
       </IonHeader>
 
@@ -24,7 +23,9 @@ const Page: React.FC<{ name: string }> = ({ name }) => {
             <IonTitle size="large">{name}</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name={name} />
+          <div className="page">
+              {content}
+          </div>
       </IonContent>
     </IonPage>
   );
