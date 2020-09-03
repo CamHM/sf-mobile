@@ -4,5 +4,32 @@
     align-items: center;
     color: white;
     height: 100%;
-    padding-top: 30%;
+    padding-top: 20%;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.title {
+    color: #ca8f35;
+    margin-bottom: 50px;
+}
+
+.input {
+    background-color: white;
+    border-bottom: #ca8f35 2px solid;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 75%;
+}
+
+.errors {
+    color: #CA2926;
+    margin: 0;
+    align-self: flex-start;
+    padding: 0 12%;
 }

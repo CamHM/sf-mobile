@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     IonChip,
     IonCol,
@@ -15,6 +15,7 @@ import {chevronDownOutline, chevronUpOutline} from 'ionicons/icons';
 import Page from "../Page";
 import './Activities.css';
 import { stateColor, stateName, formatDate } from "../../config/utils";
+import { getItem } from "../../config/utils";
 
 interface Activity {
     id: number,
@@ -81,6 +82,10 @@ const Activities: React.FC = () => {
     const [name, setName] = useState<string>('');
     const [currentAct, setCurrentAct] = useState<Activity>(initAct);
     const [currentState, setCurrentState] = useState<string>('ALL');
+
+    useEffect(() => {
+        console.log('token', getItem('token'));
+    }, [])
 
     const filterActs = activities
         .filter(act => act.name.toLowerCase().includes(name.toLocaleLowerCase()))

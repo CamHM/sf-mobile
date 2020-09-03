@@ -1,4 +1,8 @@
 import moment from "moment";
+import { NativeStorage } from "@ionic-native/native-storage";
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
 
 export function stateColor(state: string) {
     switch (state) {
@@ -66,4 +70,26 @@ export function formatDate(date: Date) {
 
 export function formatLongDate(date: Date) {
     return moment(date).format('lll')
+}
+
+export function saveItem(name: string, value: string) {
+    NativeStorage.setItem(name, value)
+        .then(() => console.log('Elemento almacenado'),
+                error => console.log('Error al alamacenar elemento', error))
+}
+
+export async function setItem(key: string, value: string) {
+    await Storage.set({
+        key,
+        value
+    });
+}
+
+export async function getItem(key: string) {
+    const { value } = await Storage.get({ key: key });
+    console.log('Item: ', value);
+}
+
+export async function removeItem(key: string) {
+    await Storage.remove({ key });
 }
