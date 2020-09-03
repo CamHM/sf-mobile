@@ -34,7 +34,7 @@
   --ion-color-warning-shade: #ca8f35;
   --ion-color-warning-tint: #e9ab50;
 
-  --ion-color-danger: #CA2926;
+    --ion-color-danger: #CA2926;
   --ion-color-danger-rgb: 202,41,38;
   --ion-color-danger-contrast: #ffffff;
   --ion-color-danger-contrast-rgb: 255,255,255;
@@ -65,7 +65,7 @@
 }
 
 .searchbar-input.sc-ion-searchbar-md {
-  border-radius: 25px;
+  border-radius: 5px;
   background-position: left 8px center;
   height: auto;
   font-size: 1.1rem;

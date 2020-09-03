@@ -1,9 +1,21 @@
-import React, { useState } from 'react';
-import { IonContent, IonGrid, IonRow, IonCol, IonSearchbar, IonChip, IonLabel, IonIcon, IonSelect, IonSelectOption } from '@ionic/react';
-import { chevronDownOutline, chevronUpOutline } from 'ionicons/icons'
+import React, {useState} from 'react';
+import {
+    IonChip,
+    IonCol,
+    IonContent,
+    IonGrid,
+    IonIcon,
+    IonLabel,
+    IonRow,
+    IonSearchbar,
+    IonSelect,
+    IonSelectOption
+} from '@ionic/react';
+import {chevronDownOutline, chevronUpOutline} from 'ionicons/icons'
 import Page from "../Page";
 import './Activities.css';
 import moment from "moment";
+import { stateColor, stateName, formatDate } from "../../config/utils";
 
 interface Activity {
     id: number,
@@ -124,22 +136,22 @@ const Activities: React.FC = () => {
                                                 className={currentAct.id !== act.id ? "activity-card" : "active_activity"}
                                                 onClick={() => handleCurrentActivity(act)}
                                             >
-                                                <IonChip color={getTaskSateColor(act.state)}>
-                                                    <IonLabel>{getTaskSateName(act.state)}</IonLabel>
+                                                <IonChip color={stateColor(act.state)}>
+                                                    <IonLabel>{stateName(act.state)}</IonLabel>
                                                 </IonChip>
                                                 <div>
                                                     <span className="activity-name">{act.name}</span>
                                                     <IonIcon
                                                         ios={currentAct.id !== act.id ? chevronDownOutline : chevronUpOutline}
                                                         md={currentAct.id !== act.id ? chevronDownOutline : chevronUpOutline}
-                                                        color={getTaskSateColor(act.state)}
+                                                        color={stateColor(act.state)}
                                                     />
                                                 </div>
                                             </div>
                                             { currentAct.id === act.id &&
                                                 <div className="activity-desc">
-                                                    <p className="label"><b>Inicia: </b><span>{moment(act.start_date).format('LL')}</span></p>
-                                                    <p className="label space"><b>Termina: </b><span>{moment(act.end_date).format('LL')}</span></p>
+                                                    <p className="label"><b>Inicia: </b><span>{formatDate(act.start_date)}</span></p>
+                                                    <p className="label space"><b>Termina: </b><span>{formatDate(act.end_date)}</span></p>
                                                     <span>{act.description}</span>
                                                 </div>
                                             }
@@ -156,45 +168,5 @@ const Activities: React.FC = () => {
         />
     )
 };
-
-function getTaskSateColor(state: string) {
-    switch (state) {
-        case 'FINISHED': {
-            return 'success';
-        }
-        case 'CANCELLED': {
-            return 'warning';
-        }
-        case 'DOING': {
-            return 'secondary';
-        }
-        case 'PENDING': {
-            return 'danger'
-        }
-        default: {
-            return 'primary';
-        }
-    }
-}
-
-function getTaskSateName(state: string) {
-    switch (state) {
-        case 'FINISHED': {
-            return 'Finalizada';
-        }
-        case 'CANCELLED': {
-            return 'Cancelada';
-        }
-        case 'DOING': {
-            return 'Proceso';
-        }
-        case 'PENDING': {
-            return 'Pendiente'
-        }
-        default: {
-            return 'Pendiente';
-        }
-    }
-}
 
 export default Activities;
