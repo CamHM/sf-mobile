@@ -11,9 +11,10 @@ import {
 } from '@ionic/react';
 
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { calendarOutline, calendarSharp, copyOutline, copySharp, logOutOutline, personCircleOutline, qrCodeOutline, qrCodeSharp } from 'ionicons/icons';
 import './Menu.css';
+import { removeItem } from "../config/utils";
 
 interface AppPage {
   url: string;
@@ -51,6 +52,12 @@ const appPages: AppPage[] = [
 
 const Menu: React.FC = () => {
   const location = useLocation();
+  let history = useHistory();
+
+  const logOut = () => {
+    removeItem('token');
+    history.push('/login');
+  };
 
   return (
     <IonMenu contentId="main" type="overlay">
@@ -68,7 +75,7 @@ const Menu: React.FC = () => {
               </IonMenuToggle>
             );
           })}
-          <IonItem button onClick={() => console.log('Holaa')} lines="none" detail={false}>
+          <IonItem button onClick={logOut} lines="none" detail={false}>
             <IonIcon slot="start" ios={logOutOutline} md={logOutOutline} />
             <IonLabel>Cerrar sesión</IonLabel>
           </IonItem>
