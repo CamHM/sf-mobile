@@ -50,7 +50,8 @@ const InOut: React.FC = () => {
             orientation: 'portrait',
         };
 
-        const data = await BarcodeScanner.scan(options);
+        // const data = await BarcodeScanner.scan(options);
+        const data = { text: 's0axi2xy2dr' };
         save(data.text);
     }
 
@@ -79,8 +80,11 @@ const InOut: React.FC = () => {
                     { records.length === 0 && <p className="activity-name">No hay registros de entrada/salida</p> }
                     { records.map(rec =>
                         <div key={`record-${rec.id}`} className="InOut-card">
-                            <p>{dayTimeName(rec.dayTime || 'MORNING')}</p>
-                            <p>{formatLongDate(rec.scheduleDate)}</p>
+                            <p className="inOut-space">{dayTimeName(rec.dayTime || 'MORNING')}</p>
+                            <div>
+                                <p>{formatLongDate(rec.scheduleDate)}</p>
+                                <p>{rec.ouvreName}</p>
+                            </div>
                         </div>
                     ) }
                 </IonContent>

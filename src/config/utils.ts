@@ -107,11 +107,13 @@ export async function setItem(key: string, value: string) {
         key,
         value
     });
+    // console.log(key, value)
 }
 
 export async function getItem(key: string) {
     const { value } = await Storage.get({ key });
     return value
+    // if ('token') return
 }
 
 export async function removeItem(key: string) {

@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@capacitor/android": "^2.4.0",
-    "@capacitor/core": "2.4.0",
+    "@capacitor/core": "^2.4.0",
     "@ionic-native/barcode-scanner": "^5.28.0",
     "@ionic-native/core": "^5.28.0",
     "@ionic-native/native-storage": "^5.28.0",
@@ -52,7 +52,7 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "2.4.0"
+    "@capacitor/cli": "^2.4.0"
   },
   "description": "An Ionic project"
 }

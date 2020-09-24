@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import "./Login.css";
 import { IonButton, IonContent, IonInput, IonLoading } from '@ionic/react';
-import logo from '../../assets/logo.png';
+import logo from '../../logo.png';
 import { postRequest } from "../../service/service.provider";
 import { setItem } from "../../config/utils";
 

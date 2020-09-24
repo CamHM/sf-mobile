@@ -16,80 +16,52 @@ import Page from "../Page";
 import './Activities.css';
 import { stateColor, stateName, formatDate } from "../../config/utils";
 import { getItem } from "../../config/utils";
+import { getRequest } from "../../service/service.provider";
 
 interface Activity {
     id: number,
-    name: string;
-    description: string;
-    start_date: Date;
-    end_date: Date;
-    state: string;
+    state: string,
+    createdAt: Date,
+    ouvreId: number,
+    taskDescription: string,
+    taskEndDate: Date,
+    taskName: string,
+    taskStartDate: Date,
+    taskState: string,
+    updatedAt: Date,
 }
 
-const activities: Activity[] = [
-    {
-        id: 1,
-        name: 'Actividad X',
-        description: 'Descripción 6',
-        start_date: new Date(Date.now()),
-        end_date: new Date(Date.now()),
-        state: 'DOING',
-    },
-    {
-        id: 2,
-        name: 'Actividad Y',
-        description: 'Descripción 5 more words and more and more',
-        start_date: new Date(Date.now()),
-        end_date: new Date(Date.now()),
-        state: 'DOING',
-    },
-    {
-        id: 3,
-        name: 'Actividad ZZZZ',
-        description: 'Descripción 4',
-        start_date: new Date(Date.now()),
-        end_date: new Date(Date.now()),
-        state: 'DOING',
-    },
-    {
-        id: 4,
-        name: 'Vamo a construir',
-        description: 'Descripción 3',
-        start_date: new Date(Date.now()),
-        end_date: new Date(Date.now()),
-        state: 'CANCELLED',
-    },
-    {
-        id: 5,
-        name: 'Levantamiento Muro',
-        description: 'Descripción 2',
-        start_date: new Date(Date.now()),
-        end_date: new Date(Date.now()),
-        state: 'PENDING',
-    },
-    {
-        id: 6,
-        name: 'Actividad WWWW',
-        description: 'Descripción 1',
-        start_date: new Date(Date.now()),
-        end_date: new Date(Date.now()),
-        state: 'PENDING',
-    },
-];
-
 const Activities: React.FC = () => {
-    const initAct = { id: 0, name: '', description: '', start_date: new Date(Date.now()), end_date: new Date(Date.now()), state: ''};
+    const initAct = {
+        id: 0,
+        state: '',
+        createdAt: new Date(Date.now()),
+        ouvreId: 0,
+        taskDescription: '',
+        taskEndDate: new Date(Date.now()),
+        taskName: '',
+        taskStartDate: new Date(Date.now()),
+        taskState: '',
+        updatedAt: new Date(Date.now()),
+    };
     const [name, setName] = useState<string>('');
     const [currentAct, setCurrentAct] = useState<Activity>(initAct);
     const [currentState, setCurrentState] = useState<string>('ALL');
+    const [activities, setActivities] = useState<Activity[]>([]);
 
     useEffect(() => {
-        console.log('token', getItem('token'));
+        getItem('token').then(t => {
+            getItem('userId').then(id => {
+                getRequest(`/ouvre/getWorkerActivities?userId=${id}`, t || '')
+                    .then(res => res.json())
+                    .then(data => setActivities(data))
+            })
+        })
     }, [])
 
     const filterActs = activities
-        .filter(act => act.name.toLowerCase().includes(name.toLocaleLowerCase()))
-        .filter(act => currentState === 'ALL' ? true : act.state === currentState);
+        .filter(act => act.taskName.toLowerCase().includes(name.toLocaleLowerCase()))
+        .filter(act => currentState === 'ALL' ? true : act.taskState === currentState);
 
     const handleNameChange = (text: string) => setName(text);
 
@@ -144,7 +116,7 @@ const Activities: React.FC = () => {
                                                     <IonLabel>{stateName(act.state)}</IonLabel>
                                                 </IonChip>
                                                 <div>
-                                                    <span className="activity-name">{act.name}</span>
+                                                    <span className="activity-name">{act.taskName}</span>
                                                     <IonIcon
                                                         ios={currentAct.id !== act.id ? chevronDownOutline : chevronUpOutline}
                                                         md={currentAct.id !== act.id ? chevronDownOutline : chevronUpOutline}
@@ -154,9 +126,9 @@ const Activities: React.FC = () => {
                                             </div>
                                             { currentAct.id === act.id &&
                                                 <div className="activity-desc">
-                                                    <p className="label"><b>Inicia: </b><span>{formatDate(act.start_date)}</span></p>
-                                                    <p className="label space"><b>Termina: </b><span>{formatDate(act.end_date)}</span></p>
-                                                    <span>{act.description}</span>
+                                                    <p className="label"><b>Inicia: </b><span>{formatDate(act.taskStartDate)}</span></p>
+                                                    <p className="label space"><b>Termina: </b><span>{formatDate(act.taskEndDate)}</span></p>
+                                                    <span>{act.taskDescription}</span>
                                                 </div>
                                             }
                                         </div>

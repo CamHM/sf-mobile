@@ -1,7 +1,4 @@
-import { getItem } from "../config/utils";
-
 const SERVER_URL = 'https://constructora-sf.herokuapp.com';
-const TOKEN = 'token';
 
 export async function postRequest(data: any, url: string, token?: string): Promise<Response> {
     const request: RequestInit = {

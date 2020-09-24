@@ -41,7 +41,7 @@ const App: React.FC = () => {
             <Route path="/page/activities" component={Activities} exact />
             <Route path="/page/qrscan" component={InOut} exact />
             <Route path="/page/projects" component={Projects} exact />
-            <Redirect from="/" to="/page/activities" exact />
+            <Redirect from="/" to="/login" exact />
           </IonRouterOutlet>
         </IonSplitPane>
         <Route path="/login" component={Login} exact />
